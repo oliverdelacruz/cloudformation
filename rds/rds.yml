@@ -1,0 +1,77 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  AWS CloudFormation Sample Template for RDS: Create
+  an Amazon RDS instance
+Parameters:
+  RegionName:
+    Description: Name of the region
+    Type: String
+    Default: us-east-1
+    AllowedValues:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - eu-west-1
+  RDSInstanceType:
+    Description: Type of RDS instance
+    Type: String
+    Default: db.t2.micro
+    AllowedValues:
+        - db.t2.micro
+        - db.t2.small
+        - db.t2.medium
+        - db.t2.large
+        - db.t2.xlarge
+        - db.r5.small
+        - db.r5.medium
+        - db.r5.large
+        - db.r5.xlarge
+Mappings:
+  AZNames:
+    us-east-1:
+      a: us-east-1a
+      b: us-east-1b
+      c: us-east-1c
+    us-east-2:
+      a: us-east-2a
+      b: us-east-2b
+      c: us-east-2c
+    us-west-1:
+      a: us-west-1a
+      b: us-west-1b
+      c: us-west-1c
+    us-west-2:
+      a: us-west-2a
+      b: us-west-2b
+      c: us-west-2c
+    eu-west-1:
+      a: us-west-1
+      b: us-west-1
+      c: us-west-1
+Resources:
+  DBSubnetGroupDEV:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet Group for DEV environment
+      DBSubnetGroupName: SubnetGroupDEV
+      SubnetIds:
+        - subnet-053858eb0e3b5bc91
+        - subnet-08b473c269ce02a6a
+        - subnet-0778dde662f142a89
+  RDS:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: !Ref RDSInstanceType
+      DBInstanceIdentifier: djangodev
+      DBName: djangodev
+      MasterUsername: db_django
+      MasterUserPassword: r1t3Tf83!
+      Engine: postgres
+      EngineVersion: "11.4"
+      AvailabilityZone: !FindInMap [AZNames, !Ref RegionName, a]
+      PubliclyAccessible: true
+      MultiAZ: false
+      DBSubnetGroupName: !Ref DBSubnetGroupDEV
+      AllocatedStorage: 20
+      StorageType: standard
