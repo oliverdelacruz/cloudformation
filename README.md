@@ -20,5 +20,5 @@ Using cloud formation, we able to setup databases, VPCs, EC2 that will enable us
 Setup or sign-in for an AWS account. 
 
 ## License
-****
+
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details 
