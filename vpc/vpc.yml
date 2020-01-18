@@ -152,3 +152,37 @@ Resources:
     Properties:
       RouteTableId: !Ref RoutePrivateTable03
       SubnetId: !Ref PrivateSubnet03
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: "Default Security Group"
+      GroupDescription: "Allow all traffic."
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
+Outputs:
+  VPCId:
+    Description: VPCId of the newly created VPC
+    Value: !Ref VPC
+  PublicSubnet01Id:
+    Description: Public DNSName of the newly created EC2 instance
+    Value: !Ref PublicSubnet01
+  PublicSubnet02Id:
+    Description: Public DNSName of the newly created EC2 instance
+    Value: !Ref PublicSubnet02
+  PublicSubnet03Id:
+    Description: Public DNSName of the newly created EC2 instance
+    Value: !Ref PublicSubnet03
+  PrivateSubnet01Id:
+    Description: Public DNSName of the newly created EC2 instance
+    Value: !Ref PrivateSubnet01
+  PrivateSubnet02Id:
+    Description: Public DNSName of the newly created EC2 instance
+    Value: !Ref PrivateSubnet02
+  PrivateSubnet03Id:
+    Description: Public DNSName of the newly created EC2 instance
+    Value: !Ref PrivateSubnet03
